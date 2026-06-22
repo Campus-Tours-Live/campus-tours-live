@@ -2,10 +2,11 @@
 
 > 🚧 **In active development.** Things move fast, so this overview is intentionally light — see each service's own repo for details.
 
-A live campus-tours platform, split into three services:
+A live campus-tours platform. The project spans four repos — three services plus this one:
 
-| Service | What it is | Stack | Port |
+| Repo | What it is | Stack | Port |
 | --- | --- | --- | --- |
+| [campus-tours-live](https://github.com/Campus-Tours-Live/campus-tours-live) | This repo — project overview + dev launcher | Node | — |
 | [frontend](https://github.com/Campus-Tours-Live/frontend) | Web app (UI) | Next.js / React / TypeScript | `3001` |
 | [bff](https://github.com/Campus-Tours-Live/bff) | Backend-for-frontend: auth, session, API aggregation & proxy | Node.js / TypeScript / Express | `4000` |
 | [backend](https://github.com/Campus-Tours-Live/backend) | Core API + data | Java 21 / Spring Boot / PostgreSQL | `8080` |
