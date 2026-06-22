@@ -2,8 +2,8 @@
 // Pure Node built-ins — no dependencies, no `npm install` needed.
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { dirname, join, resolve } from 'node:path';
-import { existsSync } from 'node:fs';
+import { basename, dirname, join, resolve } from 'node:path';
+import { copyFileSync, existsSync } from 'node:fs';
 import http from 'node:http';
 
 export const isWin = process.platform === 'win32';
@@ -24,6 +24,20 @@ export function ensureDir(name) {
     process.exit(1);
   }
   return dir;
+}
+
+// Seed <dir>/.env from <dir>/.env.example on first run so a fresh clone starts
+// without a manual copy. Never overwrites an existing .env. Returns true when it
+// just created the file, so callers can nudge about secrets that still need real
+// values. No-ops (returns false) if the service has no .env.example.
+export function ensureEnv(dir) {
+  const env = join(dir, '.env');
+  if (existsSync(env)) return false;
+  const example = join(dir, '.env.example');
+  if (!existsSync(example)) return false;
+  copyFileSync(example, env);
+  console.log(`> Created ${basename(dir)}/.env from .env.example`);
+  return true;
 }
 
 // Maven wrapper / npm differ by platform; use the wrapper's absolute path so

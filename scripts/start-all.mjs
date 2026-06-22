@@ -1,8 +1,7 @@
 // Start all three services together. Ctrl-C once stops everything.
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import {
   ensureDir,
+  ensureEnv,
   mavenWrapper,
   npmBin,
   runPrefixed,
@@ -15,10 +14,11 @@ const backend = ensureDir('backend');
 const bff = ensureDir('bff');
 const frontend = ensureDir('frontend');
 
-if (!existsSync(join(bff, '.env'))) {
-  console.error('x bff/.env is missing. Run: cp bff/.env.example bff/.env and fill in the required vars.');
-  process.exit(1);
+// Seed .env files from their examples on first run (no-op if they already exist).
+if (ensureEnv(bff)) {
+  console.log('  ! Fill in real SESSION_SECRET / GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET in bff/.env before signing in.');
 }
+ensureEnv(frontend);
 
 const children = [];
 let shuttingDown = false;
