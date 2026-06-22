@@ -1,0 +1,13 @@
+{
+  "name": "campus-tours-live",
+  "version": "0.0.0",
+  "private": true,
+  "description": "CampusToursLive.ai — project overview and cross-platform dev launcher",
+  "scripts": {
+    "clone-all": "node scripts/clone-all.mjs",
+    "start:backend": "node scripts/start-backend.mjs",
+    "start:bff": "node scripts/start-bff.mjs",
+    "start:frontend": "node scripts/start-frontend.mjs",
+    "start:all": "node scripts/start-all.mjs"
+  }
+}
